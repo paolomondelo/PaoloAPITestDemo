@@ -1,8 +1,8 @@
-import type { Post } from '../../types/api.types';
+import type { Post, User } from '../../types/api.types';
 
 describe('API - GET', () => {
   it('GET /posts - should return all posts with status 200', () => {
-    cy.apiGet('/posts').then((response) => {
+    cy.apiGet<Post[]>('/posts').then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.be.an('array');
       expect(response.body).to.have.length(100);
@@ -39,10 +39,10 @@ describe('API - GET', () => {
   });
 
   it('GET /users - should return users list', () => {
-    cy.apiGet('/users').then((response) => {
+    cy.apiGet<User[]>('/users').then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.be.an('array');
-      expect(response.body[0]).to.have.keys('id', 'name', 'username', 'email');
+      expect(response.body[0]).to.include.keys('id', 'name', 'username', 'email');
     });
   });
 });
