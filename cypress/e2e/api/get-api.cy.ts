@@ -17,6 +17,7 @@ describe('API - GET', () => {
       expect(post.id).to.eq(1);
       expect(post.userId).to.be.a('number');
       expect(post.title).to.be.a('string');
+      expect(post.body).to.contain('quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto');
       expect(post.body).to.be.a('string');
     });
   });
