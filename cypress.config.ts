@@ -10,6 +10,11 @@ export default defineConfig({
     defaultCommandTimeout: 10000,
     requestTimeout: 10000,
     responseTimeout: 10000,
+    setupNodeEvents(on, config) {
+      const { tagify } = require('cypress-tags');
+      on('file:preprocessor', tagify(config));
+      return config;
+    },
   },
   env: {
     apiBaseUrl: 'https://jsonplaceholder.typicode.com',

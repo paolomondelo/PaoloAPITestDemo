@@ -6,17 +6,27 @@ import type { Post } from '../../types/api.types';
  * resource does not exist (only posts 1-100). We use post id 1 for PUT/DELETE
  * since those require an existing resource.
  */
+
+describe('API - CRUD Flow', () => {
+  beforeEach(() => {
+    cy.log('Starting API GET test');
+  });
+
+  afterEach(() => {
+    cy.log('API CRUD Flow test completed');
+  });
+
 describe('API - CRUD Flow (GET, POST, PUT, DELETE)', () => {
   const existingPostId = 1;
 
-  it('1. GET - fetch initial list', () => {
+  it('@critical @smoke 1. GET - fetch initial list', () => {
     cy.apiGet('/posts').then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.be.an('array');
     });
   });
 
-  it('2. POST - create a new resource', () => {
+  it('@critical @smoke 2. POST - create a new resource', () => {
     const payload = {
       title: 'CRUD Flow Test Post',
       body: 'Created in Cypress CRUD flow.',
@@ -30,14 +40,14 @@ describe('API - CRUD Flow (GET, POST, PUT, DELETE)', () => {
     });
   });
 
-  it('3. GET - read an existing resource', () => {
+  it('@critical @smoke 3. GET - read an existing resource', () => {
     cy.apiGet<Post>(`/posts/${existingPostId}`).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body.id).to.eq(existingPostId);
     });
   });
 
-  it('4. PUT - update the resource', () => {
+  it('@critical @smoke 4. PUT - update the resource', () => {
     const updated = {
       id: existingPostId,
       title: 'CRUD Flow - Updated Title',
@@ -50,9 +60,11 @@ describe('API - CRUD Flow (GET, POST, PUT, DELETE)', () => {
     });
   });
 
-  it('5. DELETE - remove the resource', () => {
+  it('@critical @smoke 5. DELETE - remove the resource', () => {
     cy.apiDelete(`/posts/${existingPostId}`).then((response) => {
       expect(response.status).to.eq(200);
     });
   });
 });
+});
+//npx cypress open --env grepTags=@smoke

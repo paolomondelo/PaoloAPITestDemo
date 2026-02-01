@@ -1,6 +1,15 @@
 import type { Post } from '../../types/api.types';
 
 describe('API - PUT', () => {
+  beforeEach(() => {
+    cy.log('Starting API PUT test');
+  });
+
+  afterEach(() => {
+    cy.log('API PUT test completed');
+  });
+
+describe('API - PUT', () => {
   const updatedPost = {
     id: 1,
     title: 'Updated title via PUT',
@@ -8,7 +17,7 @@ describe('API - PUT', () => {
     userId: 1,
   };
 
-  it('PUT /posts/1 - should update an existing post and return 200', () => {
+  it('@smoke @critical PUT /posts/1 - should update an existing post and return 200', () => {
     cy.apiPut('/posts/1', updatedPost).then((response) => {
       expect(response.status).to.eq(200);
       const body = response.body as Post;
@@ -19,7 +28,7 @@ describe('API - PUT', () => {
     });
   });
 
-  it('PUT /posts/1 - should allow partial update (API may merge)', () => {
+  it('@regression PUT /posts/1 - should allow partial update (API may merge)', () => {
     const partialUpdate = {
       title: 'Only title updated',
     };
@@ -29,7 +38,7 @@ describe('API - PUT', () => {
     });
   });
 
-  it('PUT /posts/99 - should update and return 200 for existing id', () => {
+  it('@regression PUT /posts/99 - should update and return 200 for existing id', () => {
     cy.apiPut('/posts/99', {
       id: 99,
       title: 'Post 99 Updated',

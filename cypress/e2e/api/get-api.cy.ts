@@ -1,7 +1,15 @@
 import type { Post, User } from '../../types/api.types';
 
 describe('API - GET', () => {
-  it('GET /posts - should return all posts with status 200', () => {
+  beforeEach(() => {
+    cy.log('Starting API GET test');
+  });
+
+  afterEach(() => {
+    cy.log('API GET test completed');
+  });
+
+  it('@smoke @regression GET /posts - should return all posts with status 200', () => {
     cy.apiGet<Post[]>('/posts').then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.be.an('array');
@@ -10,7 +18,7 @@ describe('API - GET', () => {
     });
   });
 
-  it('GET /posts/1 - should return a single post by id', () => {
+  it('@smoke GET /posts/1 - should return a single post by id', () => {
     cy.apiGet('/posts/1').then((response) => {
       expect(response.status).to.eq(200);
       const post = response.body as Post;
@@ -22,7 +30,7 @@ describe('API - GET', () => {
     });
   });
 
-  it('GET /posts?userId=1 - should filter posts by userId', () => {
+  it('@regression GET /posts?userId=1 - should filter posts by userId', () => {
     cy.apiGet('/posts?userId=1').then((response) => {
       expect(response.status).to.eq(200);
       const posts = response.body as Post[];
@@ -33,13 +41,13 @@ describe('API - GET', () => {
     });
   });
 
-  it('GET /posts/99999 - should return 404 for non-existent resource', () => {
+  it('@regression GET /posts/99999 - should return 404 for non-existent resource', () => {
     cy.apiGet('/posts/99999').then((response) => {
       expect(response.status).to.eq(404);
     });
   });
 
-  it('GET /users - should return users list', () => {
+  it('@smoke GET /users - should return users list', () => {
     cy.apiGet<User[]>('/users').then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.be.an('array');

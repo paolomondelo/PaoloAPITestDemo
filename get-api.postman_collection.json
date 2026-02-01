@@ -1,0 +1,91 @@
+{
+  "info": {
+    "_postman_id": "get-api-collection",
+    "name": "GET API Tests",
+    "description": "Postman collection for GET API endpoints from get-api.cy.ts",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET /posts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts",
+          "protocol": "https",
+          "host": ["jsonplaceholder", "typicode", "com"],
+          "path": ["posts"]
+        },
+        "description": "Should return all posts with status 200"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /posts/1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts/1",
+          "protocol": "https",
+          "host": ["jsonplaceholder", "typicode", "com"],
+          "path": ["posts", "1"]
+        },
+        "description": "Should return a single post by id"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /posts?userId=1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts?userId=1",
+          "protocol": "https",
+          "host": ["jsonplaceholder", "typicode", "com"],
+          "path": ["posts"],
+          "query": [
+            {
+              "key": "userId",
+              "value": "1"
+            }
+          ]
+        },
+        "description": "Should filter posts by userId"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /posts/99999",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts/99999",
+          "protocol": "https",
+          "host": ["jsonplaceholder", "typicode", "com"],
+          "path": ["posts", "99999"]
+        },
+        "description": "Should return 404 for non-existent resource"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /users",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users",
+          "protocol": "https",
+          "host": ["jsonplaceholder", "typicode", "com"],
+          "path": ["users"]
+        },
+        "description": "Should return users list"
+      },
+      "response": []
+    }
+  ]
+}

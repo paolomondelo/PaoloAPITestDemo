@@ -1,4 +1,12 @@
 import type { Post, CreatePostPayload } from '../../types/api.types';
+describe('API - Post', () => {
+  beforeEach(() => {
+    cy.log('Starting API POST test');
+  });
+
+  afterEach(() => {
+    cy.log('API POST test completed');
+  });
 
 describe('API - POST', () => {
   const newPost: CreatePostPayload = {
@@ -7,7 +15,7 @@ describe('API - POST', () => {
     userId: 1,
   };
 
-  it('POST /posts - should create a new post and return 201', () => {
+  it('@smoke @critical POST /posts - should create a new post and return 201', () => {
     cy.apiPost('/posts', newPost).then((response) => {
       expect(response.status).to.eq(201);
       const created = response.body as Post & { id?: number };
@@ -18,7 +26,7 @@ describe('API - POST', () => {
     });
   });
 
-  it('POST /posts - should accept minimal valid payload', () => {
+  it('@regression POST /posts - should accept minimal valid payload', () => {
     const minimalPayload = {
       title: 'Minimal',
       body: 'Body',
@@ -32,7 +40,7 @@ describe('API - POST', () => {
     });
   });
 
-  it('POST /posts - should return created resource with id (JSONPlaceholder behavior)', () => {
+  it('@regression POST /posts - should return created resource with id (JSONPlaceholder behavior)', () => {
     const validIds = [...Array(102).keys()]; // 0..101 — JSONPlaceholder returns id 101 for new posts; some fakes return 0
     cy.apiPost<Post & { id: number }>('/posts', newPost).then((response) => {
       const body = response.body;

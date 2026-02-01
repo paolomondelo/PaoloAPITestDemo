@@ -9,7 +9,9 @@
     "test": "cypress run"
   },
   "devDependencies": {
+    "@cypress/grep": "^5.1.0",
     "cypress": "^13.6.3",
+    "cypress-tags": "^1.2.1",
     "typescript": "^5.3.3"
   }
 }
