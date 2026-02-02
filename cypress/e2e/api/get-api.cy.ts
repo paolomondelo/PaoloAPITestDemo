@@ -47,6 +47,13 @@ describe('API - GET', () => {
     });
   });
 
+  it('@smoke GET /posts/abc - should return 404 for invalid id', () => {
+    cy.apiGet('/posts/abc').then((response) => {
+      expect(response.status).to.eq(404);
+      expect(response.body).to.be.empty;
+    });
+  });
+
   it('@smoke GET /users - should return users list', () => {
     cy.apiGet<User[]>('/users').then((response) => {
       expect(response.status).to.eq(200);
